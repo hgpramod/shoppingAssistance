@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>MeDHA -Client Welcome</title>
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="//blivesta.com/ico/touch-icon-144.png">
+  <link rel="shortcut icon" href="//blivesta.com/ico/favicon.ico">
+  <link href='//fonts.googleapis.com/css?family=Roboto:900,100,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/open-iconic/1.1.0/font/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.rawgit.com/teq-inc/cooker/v0.4.8/dist/css/cooker.min.css">
+  <link rel="stylesheet" href="//cdn.rawgit.com/blivesta/0788a01a58f262b0b2b0/raw/a0906d15579396074a06a66b1ed57254423e1724/syntax.css">
+  <link rel="stylesheet" href="css/docs.css">
+
+  <!-- drawer CSS -->
+  <link rel="stylesheet" href="css/drawer.css">
+</head>
+
+<body class="drawer drawer-left site-base">
+
+  <a class="sr-only sr-only-focusable" href="#content" tabindex="1">Skip to main content</a>
+
+<header role="banner">
+  <div class="drawer-header">
+    <button type="button" class="drawer-toggle drawer-hamburger">
+      <span class="sr-only">toggle navigation</span>
+      <span class="drawer-hamburger-icon"></span>
+    </button>
+  </div>
+
+  <div class="drawer-main drawer-default">
+    <nav class=" drawer-nav" role="navigation">
+      <div class="drawer-brand">
+        <a href="../">Menu</a>
+      </div>
+
+      
+      <ul class="drawer-menu">
+        <li class="drawer-menu-item">Menu 1
+          <ul class="drawer-submenu">
+            <li class="drawer-submenu-item"><a href="../left">submenu1</a></li>
+          </ul>
+        </li>
+        <li class="drawer-menu-item">Menu2
+          <ul class="drawer-submenu">
+            <li class="drawer-submenu-item"><a href="../tested">submenu2</a></li>
+          </ul>
+        </li>
+      </ul>      
+      <div class="drawer-footer">
+        <span></span>
+      </div>
+    </nav>
+  </div>
+  <!-- /.drawer-main -->
+</header>
+<!-- /.site-header -->
+  <div class="drawer-overlay">
+    <main id="content" class="masthead" role="main" tabindex="-1">
+      <div class="container">
+        <h1>MeDHA Platform Client</h1>
+          <p class="lead">Customer Engagement Satisfied</p>
+          <p class="center-block form-inline" style="max-width:480px">
+          </p>
+</div>
+
+      </div><!-- /.container -->
+    </main>
+
+  <div class="site-body">
+    <div class="site-body-inner container">
+
+    <div class="section">
+  <h2 class="section-title">Header</h2>
+  <div class="section-body">
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">Info of Various Cards</h2>
+  <div class="section-body">
+    <p class="lead">1: Big Bazar Card</p>
+<div class="highlight">Show Big Bazar Card Here</div>
+    </div><!-- /.container -->
+  </div><!-- /.site-body -->
+
+<!-- Vendor js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.1/iscroll-min.js"></script>
+<script src="//cdn.rawgit.com/ungki/bootstrap.dropdown/3.3.1/dropdown.min.js"></script>
+
+<!-- drawer js -->
+<script src="js/jquery.drawer.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+
+    $('.drawer').drawer();
+
+    $('.drawer-api-toggle').on(function(){
+      $('.drawer').drawer("open");
+    });
+
+    $('.drawer').on('drawer.opened',function(){
+      console.log('opened');
+    });
+
+    $('.drawer').on('drawer.closed',function(){
+      console.log('closed');
+    });
+
+    $('.drawer-dropdown-hover').hover(function(){
+      $('[data-toggle="dropdown"]', this).trigger('click');
+    });
+
+  });
+
+</script>
+
+<!-- Google analytics -->
+<script src="//git.blivesta.com/js/ga.js"></script>
+
+
+  </div><!-- /.drawer-overlay -->
+</body>
+</html>

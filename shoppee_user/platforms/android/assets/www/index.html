@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="styles.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="js/spin.js"></script>
+	</head>
+	<body>
+		<div class="bodyContainer">
+			<div class="title">
+				<img src="images/create_thumb (1).png" width="150" height="100"/>
+			</div>
+		</div>
+		<div id="spinner"></div>
+			<script>
+				target = document.getElementById("spinner");
+				var spinner = new Spinner().spin()
+				target.appendChild(spinner.el)
+				setTimeout(function()
+				{
+					spinner.stop();
+					window.open("login.php","_self"); 
+				}, 3000);
+				
+			</script>
+	</body>
+</html>

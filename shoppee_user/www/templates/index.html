@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="styles.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ng-cordova.js"></script>
+		<script type="text/javascript" src="../js/ng-cordova.min.js"></script>
+		<script type="text/javascript" src="../js/baseUrl.js"></script>
+		<script src="../js/spin.js"></script>
+	</head>
+	<body background="../images/offerMonkOpenScreen.jpg" style="background-repeat: no-repeat; background-size: 100%;">
+		<div id="spinner"></div>
+			<script>
+				target = document.getElementById("spinner");
+				//get current timestamp in milliseconds
+				var currentTimeStamp = Math.floor(Date.now()/1000);
+				var oneDay = 1000*60*60*24;
+				var spinner = new Spinner().spin()
+				target.appendChild(spinner.el)
+				//check the values present in local storage
+				if(typeof(Storage)!== "undefined")
+				{
+					if(localStorage.getItem("user")!= '')
+					{
+						var dateDifference = currentTimeStamp-localStorage.getItem("timestamp");
+						if(Math.round((dateDifference/oneDay)) <=  "7")
+						{
+							var user = localStorage.getItem("user");
+						    //make ajax call to update the timestamp in DB
+						    xhrUpdateTimestamp = new XMLHttpRequest();
+						    xhrUpdateTimestamp.onreadystatechange = function()
+						    {
+						    	if(xhrUpdateTimestamp.readyState == 4 && xhrUpdateTimestamp.status == 200)
+						    	{
+						    		var returnValue = xhrUpdateTimestamp.responseText;
+						    		var json = JSON.parse(returnValue);
+						    		var errorCode = json.errorCode;
+						    		//spinner.stop();
+						    		if(errorCode == 50000)
+						    			window.open("welcome.php","_self");
+						    		else
+						    			window.open("login.php","_self");
+						    	}
+						    } 
+						    xhrUpdateTimestamp.open("GET",baseUrl+"/updateUserTimestampHandler.php?username="+user,true);
+						    xhrUpdateTimestamp.send();
+						}
+						else
+						{
+							spinner.stop();
+							window.open("login.php","_self"); 
+						}
+					}
+					else
+					{
+						spinner.stop();
+						window.open("login.php","_self"); 
+					}
+				}
+			</script>
+	</body>
+</html>

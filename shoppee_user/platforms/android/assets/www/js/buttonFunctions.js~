@@ -1,0 +1,8 @@
+function openRegistrationPage()
+{
+	window.open("registration.php","_self");
+}
+function doLogin()
+{
+	window.open("welcome.php","_self");
+}

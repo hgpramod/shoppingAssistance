@@ -1,0 +1,67 @@
+#loginDiv
+    {
+      background-color:#00aff0;
+      border:none;
+      box-shadow:none;
+    }
+    .textFields
+    {
+      outline:0px;
+      border:0px;
+      background-color:transparent;
+      border-bottom:1px solid white;
+      color:white;
+      width:100%;
+      text-align: center;
+      font-weight:bold;
+    }
+    td 
+    {
+      padding-top: .5em;
+      padding-bottom: .8em;
+  }
+  ::-webkit-input-placeholder 
+  {
+      color: white;
+      font-size: 10px;
+  }
+  [placeholder]:focus::-webkit-input-placeholder 
+  {
+    color: #CCCCCC;
+    position:relative;
+    padding-left:0;
+    -webkit-transition: padding 0.5s; 
+    transition: padding 0.5s;
+  }
+  table.center 
+  {
+      margin-left:auto; 
+      margin-right:auto;
+    }
+    #chevron-right
+    {
+      background-color: #0095cd;
+      width:40px;
+      height:40px;
+      margin:0px auto;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 53%;
+      margin-top: -50px;
+      margin-left: -50px;
+    }
+    
+#footer
+    {
+      border:none;
+      position: fixed;
+      bottom:0px;
+      text-align:center;
+      background-color: #0095cd;
+      width:100%;
+      left:0px;
+      height:50px;
+      color:#ffffff;
+      font-weight: bold;
+    }
