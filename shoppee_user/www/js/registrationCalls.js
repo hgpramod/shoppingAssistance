@@ -63,7 +63,7 @@ function processRegister()
 		
 		if(errorCode == 42001)
 		{
-			registrationStatus.innerHTML = "Mandatory Fields cannot be blank";
+			registrationStatus.innerHTML = "Mandatory Fields cannot be blank..!";
 		}
 		else if(errorCode == 42002)
 		{
@@ -75,7 +75,7 @@ function processRegister()
 		}
 		else if(errorCode == 42004)
 		{
-			registrationStatus.innerHTML = "Already Registered";
+			registrationStatus.innerHTML = "EmailId Already Exist";
 		}
 		else if(errorCode == 42005)
 		{

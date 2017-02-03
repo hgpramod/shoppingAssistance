@@ -3,14 +3,6 @@
     header('Access-Control-Allow-Origin: *');
     session_start();
 
-    //clear the logTable
-    //include_once("dropLogTable.php");
-    //connect to file to write the log file
-    //include_once("writeLogTable.php");
-    //clear the data of logTable
-    //dropDataOfLogFile();
-    //writeToLog("Client registration handler");
-
     class Register
     {
         //member variables
@@ -66,12 +58,7 @@
          //Function to check emailId availability
         function checkEmailIdExists()
         {
-            $dbhost = "localhost";
-            $dbuser = "root";
-            $dbpass = "";
-            $dbname="shoppingAssist";
-
-            $link = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
             if (!$link) 
             {
                 mysqli_close($link);
@@ -79,13 +66,13 @@
             }
             else
             {
-                $query = "SELECT userId, firstName FROM user_reg_table";
-                $result = $link->prepare($query);
+                $query = "SELECT * FROM user_reg_table WHERE emailId = '$this->mStrEmailId'";
+                $result = $link->query($query);
 
-                if($result)
+                if($result->num_rows > 0)
                 {
                     mysqli_close($link);
-                    return false;
+                    return true;
                 }
                 else
                 {

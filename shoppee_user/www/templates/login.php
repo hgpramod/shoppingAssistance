@@ -48,6 +48,7 @@
     <div class="panel panel-default" style="background-color:#00aff0;border:none;box-shadow:none;">
       <img src="../images/arrow.png" height="50px" onclick="doLogin()">
     </div>
+    <label id="loginStatus"></label>
       <input type="button" id="footer" value="Create Account" onclick="registerCalls();" />
   </body>
   <script>

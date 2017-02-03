@@ -3,8 +3,8 @@ function clientDetails()
 {	
 	xhrClientDetails = new XMLHttpRequest();
 	xhrClientDetails.onreadystatechange = processDetails;
-	xhrClientDetails.open("GET",baseUrl+"/clientDetailHandler.php",true);
-	xhrClientDetails.send();
+	xhrClientDetails.open("POST",baseUrl+"/clientDetailHandler.php",true);
+	xhrClientDetails.send("emailId="+localStorage.getItem("user"));
 }
 //function to process user details from server
 function processDetails()

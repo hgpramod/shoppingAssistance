@@ -1,8 +1,7 @@
 <?php
     //this file provides api to Fetch Client Details
-    session_start();
     header('Access-Control-Allow-Origin: *');
-
+    session_start();
     class Details
     {
         //member variables
@@ -29,42 +28,37 @@
         //Function to fetch client details
         function fetchDetails()
         {
-            try
+            
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new mongo("localhost");
-                //connect to Database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'clientRegistrationTable');
-                $checkQuery = array("emailId" => $this->mStrEmailId);
-                $cursor = $collection->find($checkQuery);
-                if($cursor)
+                mysqli_close($link);
+                return true;
+            }
+            else
+            {
+                $query = "SELECT * FROM user_reg_table WHERE emailId = '$this->mStrEmailId'";
+                $result = $link->query($query);
+
+                if($result->num_rows > 0)
                 {
-                    foreach($cursor as $doc)
+                    foreach($result as $doc)
                     {
                         $this->mStrFirstName = $doc['firstName'];
                         $this->mStrLastName = $doc['lastName'];
-                        $this->mStrPhoneNumber = $doc['phoneNumber'];
+                        $this->mStrPhoneNumber = $doc['phone'];
                         $this->mStrInterestedCategories = $doc['interestedCategories'];
                     }
-                    $con -> close();
+                    
                     return true;
                 }
                 else
                 {
                     //close the connection
-                    $con -> close();
                     return false;
                 }
             }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
-            }
+            
         }
     //end of class
     }
@@ -72,9 +66,8 @@
     //instatiate the class
     $clientDetails = new Details;
     //Fetch values
-    $emailId = $_SESSION['emailId'];
-    
-    //Set values to variables
+    //$emailId = $_SESSION['emailId'];
+    $emailId = $_POST['emailId'];
     $clientDetails->setValues($emailId);
     $flagMandatoryArguments = $clientDetails->checkMandatoryArguments();
     if($flagMandatoryArguments == false)

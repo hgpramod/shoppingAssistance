@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>OfferMonk</title>
+    <title>Shopping Assistance</title>
 
     <!-- Bootstrap CSS -->    
     <link href="../css/bootstrap.min.css" rel="stylesheet">

@@ -17,7 +17,6 @@ function doLogin ()
 	}
 	else
 	{
-		window.open("welcome.php","_self");
 		//make asynchronous call to server and send user data
 		xhrDoLogin = new XMLHttpRequest();
 		xhrDoLogin.onreadystatechange = processLogin;
@@ -36,7 +35,6 @@ function processLogin()
 		returnValue = returnValue.replace("{","");
 		returnValue = returnValue.replace("}","");
 		returnValue = returnValue.replace(/["]/g,"");
-		window.open("welcome.php","_self");
 		var arr = new Array();
 		arr=returnValue.split(",")
 		statusCode = arr[0].split(":");
