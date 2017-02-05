@@ -25,6 +25,7 @@
         var $mStrHighlights;
         var $mIntNumberOfCoupons;
         var $mStrAdDetailedDescription;
+        var $mStrImageUrl;
 
         //Set values to varibles
         function setValues($adGUID,$latitude,$longitude)
@@ -46,18 +47,21 @@
         //fetch the offerDetails based on the adGUID
         function fetchOffers()
         {
-            try
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new mongo("localhost");
-                //connect to Database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'advertisementTable');
-                $checkQuery = array("adGUID" => $this->mStrAdGUID);
-                $cursor = $collection->find($checkQuery);
-                if($cursor)
+                mysqli_close($link);
+                return false;
+            }
+            else
+            {
+                $query = "SELECT * FROM advertisementTable WHERE adGUID = '$this->mStrAdGUID'";
+                $result = $link->query($query);
+                        
+                if($result->num_rows > 0)
                 {
-                    foreach ($cursor as $doc) 
-                    {
+                    foreach($result as $doc)
+                    { 
                         $this->mStrAdId = $doc['adId'];
                         $this->mStrAdDescription = $doc['adDescription'];
                         $this->mStrAdCategory = $doc['adCategory'];
@@ -65,38 +69,43 @@
                         $this->mStrAdClick = $doc['numberOfClicks'];
                         $this->mStrAdOwner = $doc['adOwner'];
                         
-                        $this->mDateStartDate = $doc['adStartDate']);
-                        $this->mDateEndDate = $doc['adEndDate']);
+                        $this->mDateStartDate = $doc['adStartDate'];
+                        $this->mDateEndDate = $doc['adEndDate'];
                         $this->mStrValidityType = $doc['adValidityType'];
                         $this->mIntActualPrice = $doc['adActualPrice'];
                         $this->mIntDiscountRate = $doc['adDiscountRate'];
                         $this->mIntDiscountedPrice = $doc['adDiscountedPrice'];
                         $this->mStrHighlights = $doc['adHighlights'];
-                        $this->mIntNumberOfCoupons = $doc['couponsLeft'];
+                
+
+                        //$this->mIntNumberOfCoupons = $doc['couponsLeft'];
                         $this->mStrAdDetailedDescription = $doc['adDetailedDescription'];
                         if($this->mStrAdLocation ==  null || $this->mStrAdLocation == "" )
                             $this->mStrDistance = "";
                         else
-                            $this->mStrDistance = $this->measureDistance($this->mStrAdLocation);
+                            $this->mStrDistance = $this->measureDistance($this->mStrAdLocation); 
+
+                        $exts = array('png', 'gif', 'jpg', 'jpeg'); 
+                        $file = "offerImages/".$this->mStrAdGUID;         // <-- You'd have to define $script_id 
+
+                        $src = ''; 
+                        foreach ($exts as $ext) 
+                        { 
+                            if (file_exists("$file.$ext")) 
+                            { 
+                                $src = "$this->mStrAdGUID.$ext"; 
+                                break; 
+                            } 
+                        } 
+                        $url = array($src);
+                        $this->mStrImageUrl = $url;  
                     }
-                    $this->clickCount();
-                    $con -> close();
                     return true;
                 }
                 else
                 {
-                    $con -> close();
                     return false;
-                }
-            }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
+                }        
             }
         }
         //function to convert the unix timestamp to date
@@ -106,8 +115,10 @@
         }
 
         //Function to increase Adclick count
-        function clickCount()
+        /*function clickCount()
         {
+              
+
             try
             {
                 $con = new Mongo("localhost");
@@ -117,7 +128,7 @@
                 
                 $this->mStrAdClick =$this->mStrAdClick+1;
                 //Update the Database
-                $newData = array('$set' => array("numberOfClicks" => $this->mStrAdClick));
+                $newDataa = array('$set' => array("numberOfClicks" => $this->mStrAdClick));
                 $collection = $collection->update(array("adGUID"=>$this->mStrAdGUID),$newData);
                 if($collection)
                 {
@@ -133,7 +144,9 @@
                 }
             }
             catch ( MongoConnectionException $e )
+            
             {
+            
                 // if there was an error,catch the exception
                 echo $e->getMessage();
             }
@@ -141,7 +154,7 @@
             {
                 echo $e->getMessage();
             }
-        }
+        }*/
         //function to measure distance between user and ad
         function measureDistance($adLocation,$miles=false)
         {   
@@ -160,6 +173,7 @@
             $lat2 *= $pi80;
             $lng2 *= $pi80;
 
+            
             $r = 6372.797; // mean radius of Earth in km
             $dlat = $lat2 - $lat1;
             $dlng = $lng2 - $lng1;
@@ -178,7 +192,10 @@
     $adGUID = $_POST['adGUID'];
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
-    
+    /*$adGUID = "123456789";
+    $latitude = "10";
+    $longitude = "12";*/
+
     //store adGUID in a cookie 
     $adGUID1 = $_COOKIE['adGUID1'];
     $adGUID2 = $_COOKIE['adGUID2'];
@@ -256,7 +273,8 @@
                                             "numberOfCoupons" => $offersByInterest->mIntNumberOfCoupons,
                                             "adDetailedDescription" => $offersByInterest->mStrAdDetailedDescription,
                                             "adOwner" => $offersByInterest->mStrAdOwner,
-                                            "adGUID" => $offersByInterest->mStrAdGUID));
+                                            "adGUID" => $offersByInterest->mStrAdGUID,
+                                            "imgUrl" => $offersByInterest->mStrImageUrl));
             $returnValue = json_encode($successValue);
             ob_clean();
             echo $returnValue;   

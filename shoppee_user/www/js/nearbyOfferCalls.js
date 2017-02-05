@@ -9,7 +9,7 @@ function getLocation()
   xhrnearByOffer.onreadystatechange = processOffers;
   xhrnearByOffer.open("POST",baseUrl+"/nearbyOfferHandler.php",true);
   xhrnearByOffer.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  xhrnearByOffer.send("latitude="+lat+"&longitude="+lng);
+  xhrnearByOffer.send("latitude="+lat+"&longitude="+lng+"&emailId="+localStorage.getItem("user"));
 }
 
 //Processing Return data from server
@@ -21,6 +21,7 @@ function processOffers()
   var adGUID = new Array();
   var adLocation = new Array();
   var adDistance = new Array();
+  var imgUrl = new Array();
   if(xhrnearByOffer.readyState == 4 && xhrnearByOffer.status == 200)
   {
     var UIcontainer = document.getElementById("UIcontainer");
@@ -57,6 +58,7 @@ function processOffers()
       adCategory = jsonData.data.adCategory;
       adGUID = jsonData.data.adGUID;
       adDistance = jsonData.data.adDistance;
+      imgUrl = jsonData.data.imgUrl;
       var adActualPrice = jsonData.data.adActualPrice;
       var adDiscountedPrice = jsonData.data.adDiscountedPrice;
       //Sort the offers based on distance using bubble sort
@@ -104,7 +106,7 @@ function processOffers()
         divPanel.className = "panel-body";
         
         var image = document.createElement("img");
-        image.setAttribute("src", imageUrl+"/"+adGUID[i]);
+        image.setAttribute("src", imageUrl+"/"+imgUrl[i]);
         image.setAttribute("height", "auto");
         image.setAttribute("width","100%");
 

@@ -64,10 +64,10 @@ function processOfferDetails()
 			var adHighlights = jsonData.data.adHighlights;
 			var numberOfCoupons = jsonData.data.numberOfCoupons;
 			var adDetailedDescription = jsonData.data.adDetailedDescription;
-
+			var imgUrl = jsonData.data.imgUrl;
 			//fill the UI with the details
 			var image = document.createElement("img");
-	        image.src = imageUrl+"/"+adGUID;
+	        image.src = imageUrl+"/"+imgUrl;
 	        image.setAttribute("height", "150px");
 	        image.setAttribute("width","100%");
 

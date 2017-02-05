@@ -1,7 +1,8 @@
 <?php
 	//this file provides api to Fetch Nearby offers
-	session_start();
-    header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Origin: *');
+    session_start();
+    
 
     class Offers
     {
@@ -19,6 +20,7 @@
         var $mStrAdLocation;
         var $mStrAdActualPrice;
         var $mStrAdDiscountedPrice;
+        var $mStrImageUrl;
 
         //Set values to varibles
         function setValues($lat,$lng,$emailId)
@@ -42,118 +44,112 @@
         //Function to fetch interested Domains
         function fetchOffers()
         {
-            try
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new mongo("localhost");
-                //connect to Database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'clientRegistrationTable');
-                $checkQuery = array("emailId" => $this->mStrEmailId);
-                $cursor = $collection->find($checkQuery);
-                if($cursor)
+                mysqli_close($link);
+                return false;
+            }
+            else
+            {
+                $query = "SELECT * FROM user_reg_table WHERE emailId = '$this->mStrEmailId'";
+                $result = $link->query($query);
+
+                if($result->num_rows > 0)
                 {
-                    foreach($cursor as $doc)
+                    foreach($result as $doc)
                     {
                         $interestedCategories = $doc['interestedCategories'];
-                        $this->mStrDomains = explode(",", $interestedCategories);
-                        for($i=0;$i<count($this->mStrDomains);$i++)
+                        $Domains = explode(",", $interestedCategories);
+                        for($i=0;$i<count($Domains);$i++)
                         {
                             //function call to get the corresponding ads based on domains
-                            $this->fetchCategoryOffer($this->mStrDomains[$i]);
+                            $domain = $Domains[$i];
+                            $this->fetchCategoryOffer($domain);
                         }  
-                        return true;                      
+                        return true;  
                     }
+                    
+                    return true;
                 }
                 else
                 {
-                    
                     //close the connection
-                    $con -> close();
                     return false;
                 }
-            }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
             }
         }
         //function to fetch offers according to the categories
         function fetchCategoryOffer($domain)
         {
-            try
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new mongo("localhost");
-                //connect to Database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'advertisementTable');
-                $checkQuery = array("adCategory" => $domain);
-                $cursor1 = $collection->find($checkQuery)->count();
-                $cursor = $collection->find($checkQuery);
-                if($cursor != 0)
+                mysqli_close($link);
+                return false;
+            }
+            else
+            {
+                $query = "SELECT * FROM advertisementTable WHERE adCategory = '$domain'";
+                $result = $link->query($query);
+                
+                if($result->num_rows > 0)
                 {
-                    foreach($cursor as $doc)
-                    {
-                        $couponsLeft = $doc['couponsLeft'];
-                        if($couponsLeft >= 1)
+                    foreach($result as $doc)
+                    {   
+                        $distance = $this->measureDistance($doc['adLocation']);
+                        if($distance <= 25)
                         {
-                            //measure the distance between user and adLocation
-                            $distance = $this->measureDistance($doc['adLocation']);
-                            if($distance <= 25)
-                            {
-                                $adId = $doc['adId'];
-                                $adDescription = $doc['adDescription'];
-                                $adCategory = $doc['adCategory'];
-                                $adGUID = $doc['adGUID'];
-                                $adLocation = $doc['adLocation'];
-                                $adActualPrice = $doc['adActualPrice'];
-                                $adDiscountedPrice =$doc['adDiscountedPrice'];
-                                $adSearchRate = $doc['adSearchRate'];
-                                $this->adSearchRateUpdate($adSearchRate,$adGUID);
-                                $adDistance = round($distance,2);
+                            $adId = $doc['adId'];
+                            $adDescription = $doc['adDescription'];
+                            $adCategory = $doc['adCategory'];
+                            $adGUID = $doc['adGUID'];
+                            $adLocation = $doc['adLocation'];
+                            $adSearchRate = $doc['adSearchRate'];
+                            $adPrice = $doc['adDiscountedPrice'];
+                            $adActualPrice = $doc['adActualPrice'];
+                            $this->adSearchRateUpdate($adSearchRate,$adGUID);
+                            $adDistance = round($distance,2);
+                            //create array of ad details
+                            $adIdArray = array($adId);
+                            $adDescriptionArray = array($adDescription);
+                            $adCategoryArray = array($adCategory);
+                            $adGUIDArray = array($adGUID);
+                            $adLocationArray = array($adLocation);
+                            $adPriceArray = array($adPrice);
+                            $adActualPriceArray = array($adActualPrice);
+                            $adDistanceArray = array($adDistance);
 
-                                //create array of ad details
-                                $adIdArray = array($adId);
-                                $adDescriptionArray = array($adDescription);
-                                $adCategoryArray = array($adCategory);
-                                $adGUIDArray = array($adGUID);
-                                $adLocationArray = array($adLocation);
-                                $adDistanceArray = array($adDistance);
-                                $adActualPriceArray = array($adActualPrice);
-                                $adDiscountedPriceArray = array($adDiscountedPrice);
+                            //store the arrays
+                            $this->mStrAdId[] = $adIdArray;
+                            $this->mStrAdDescription[] = $adDescriptionArray;
+                            $this->mStrAdCategory[] = $adCategoryArray;
+                            $this->mStrAdGUID[] = $adGUIDArray;
+                            $this->mStrAdLocation[] = $adLocationArray;
+                            $this->mStrAdPrice[]  = $adPriceArray;
+                            $this->mStrAdActualPrice[] = $adActualPriceArray;
+                            $this->mStrAdDistance[] = $adDistanceArray;
+                            $exts = array('png', 'gif', 'jpg', 'jpeg'); 
+                            $file = "offerImages/".$adGUID;         // <-- You'd have to define $script_id 
 
-                                //store the arrays
-                                $this->mStrAdId[] = $adIdArray;
-                                $this->mStrAdDescription[] = $adDescriptionArray;
-                                $this->mStrAdCategory[] = $adCategoryArray;
-                                $this->mStrAdGUID[] = $adGUIDArray;
-                                $this->mStrAdLocation[] = $adLocationArray;
-                                $this->mStrAdDistance[] = $adDistanceArray;
-                                $this->mStrAdActualPrice[] = $adActualPriceArray;
-                                $this->mStrAdDiscountedPrice[] = $adDiscountedPriceArray;
-                            }
+                            $src = ''; 
+                            foreach ($exts as $ext) 
+                            { 
+                                if (file_exists("$file.$ext")) 
+                                { 
+                                    $src = "$adGUID.$ext"; 
+                                    break; 
+                                } 
+                            } 
+                            $url = array($src);
+                            $this->mStrImageUrl[] = $url;
                         }
                     }
+                    return true;
                 }
-                else
-                {
-                    //Return back to fetchOffer()
-                    return;
-                }
+                return false;
             }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
-            }
+
         }
         
         //function to measure distance between user and ad
@@ -185,26 +181,16 @@
         //This function updates the adSearchRate
         function adSearchRateUpdate($adSearchRate,$adGUID)
         {
-            try
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new Mongo("localhost");
-                //connect to the database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'advertisementTable');
-                
-                //Update the Database
+                mysqli_close($link);
+            }
+            else
+            {
                 $adSearchRate = $adSearchRate+1;
-                $newData = array('$set' => array("adSearchRate" => $adSearchRate));
-                $collection = $collection->update(array("adGUID"=>$adGUID),$newData);
-            }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
+                $query = "UPDATE advertisementTable SET adSearchRate = '$adSearchRate' WHERE adGUID = '$adGUID'";
+                $result = $link->query($query);
             }
         }
     //end of class
@@ -213,10 +199,13 @@
     //instatiate the class
     $nearByOffers = new Offers;
     //Fetch values
-    $emailId = $_SESSION['emailId'];
+    $emailId = $_POST['emailId'];
     $lat = $_POST['latitude'];
     $lng = $_POST['longitude'];
     
+    /*$emailId = "pramod@awpl.co";
+    $lat= "12";
+    $lng = "77";*/
     //Set values to variables
     $nearByOffers->setValues($lat,$lng,$emailId);
     $flagMandatoryArguments = $nearByOffers->CheckMandatoryArguments();
@@ -255,7 +244,8 @@
                                                 "adLocation" => $nearByOffers->mStrAdLocation,
                                                 "adDistance" => $nearByOffers->mStrAdDistance,
                                                 "adActualPrice" => $nearByOffers->mStrAdActualPrice,
-                                                "adDiscountedPrice" => $nearByOffers->mStrAdDiscountedPrice));
+                                                "adDiscountedPrice" => $nearByOffers->mStrAdPrice,
+                                                "imgUrl" => $nearByOffers->mStrImageUrl));
             $returnValue = json_encode($successValue);
             ob_clean();
             echo $returnValue;   

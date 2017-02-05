@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="../js/baseUrl.js"></script>
 	<script src="../js/nearbyOfferCalls.js"></script>
 	<script src="../js/refreshLocationCalls.js"></script>
-    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDj1D0RGK5Qs4WlVksRg_eCC0DMNLS-how"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body class="avoid-fout page-blue" style="background-color:#EEEEEE;" onload="getLocation();">
