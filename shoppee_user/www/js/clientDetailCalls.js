@@ -3,8 +3,9 @@ function getDetails()
 {            
   xhrClientDetails = new XMLHttpRequest();
   xhrClientDetails.onreadystatechange = processDetails;
-  xhrClientDetails.open("GET",baseUrl+"/clientDetailHandler.php",true);
-  xhrClientDetails.send();
+  xhrClientDetails.open("POST",baseUrl+"/clientDetailHandler.php",true);
+  xhrClientDetails.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xhrClientDetails.send("emailId="+localStorage.getItem("user"));
 }
 
 function processDetails()

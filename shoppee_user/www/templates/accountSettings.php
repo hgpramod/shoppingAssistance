@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
-    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDj1D0RGK5Qs4WlVksRg_eCC0DMNLS-how"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="../js/baseUrl.js"></script>
 	<script type="text/javascript" src="../js/accountSettingsCalls.js"></script>

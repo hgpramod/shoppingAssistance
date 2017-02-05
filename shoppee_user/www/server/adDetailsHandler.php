@@ -65,8 +65,8 @@
                         $this->mStrAdClick = $doc['numberOfClicks'];
                         $this->mStrAdOwner = $doc['adOwner'];
                         
-                        $this->mDateStartDate = $this->convertDate($doc['adStartDate']);
-                        $this->mDateEndDate = $this->convertDate($doc['adEndDate']);
+                        $this->mDateStartDate = $doc['adStartDate']);
+                        $this->mDateEndDate = $doc['adEndDate']);
                         $this->mStrValidityType = $doc['adValidityType'];
                         $this->mIntActualPrice = $doc['adActualPrice'];
                         $this->mIntDiscountRate = $doc['adDiscountRate'];

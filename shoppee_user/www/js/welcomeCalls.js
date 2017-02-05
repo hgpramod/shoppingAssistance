@@ -1,10 +1,11 @@
 //This file provides API to fetch user details 
 function clientDetails()
-{	
+{	var emailId = localStorage.getItem("user");
 	xhrClientDetails = new XMLHttpRequest();
 	xhrClientDetails.onreadystatechange = processDetails;
 	xhrClientDetails.open("POST",baseUrl+"/clientDetailHandler.php",true);
-	xhrClientDetails.send("emailId="+localStorage.getItem("user"));
+	xhrClientDetails.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xhrClientDetails.send("emailId="+emailId);
 }
 //function to process user details from server
 function processDetails()

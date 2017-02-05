@@ -16,6 +16,7 @@
         var $mStrAdLocation;
         var $mStrAdPrice;
         var $mStrAdActualPrice;
+        var $mStrImageUrl;
 
         //Set values to varibles
         function setValues($interestedDomains)
@@ -35,26 +36,25 @@
         //fetch the offers based on the Domains
         function fetchOffers()
         {
-            try
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new mongo("localhost");
-                //connect to Database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'advertisementTable');
-                $this->mStrDomains = explode(",", $this->mStrDomains);
-                for($i=0;$i<count($this->mStrDomains);$i++)
+                mysqli_close($link);
+                return true;
+            }
+            else
+            {
+                $Domains = explode(",", $this->mStrDomains);
+                for($i=0;$i<count($Domains);$i++)
                 {
-                    $checkQuery = array("adCategory" => $this->mStrDomains[$i]);
-                    $cursorCount = $collection->find($checkQuery)->count();
-                    $cursor = $collection->find($checkQuery);
-                    if($cursorCount != 0)
+                    $domain = $Domains[$i];
+                    $query = "SELECT * FROM advertisementTable WHERE adCategory = '$domain'";
+                    $result = $link->query($query);
+                    
+                    if($result->num_rows > 0)
                     {
-                        foreach($cursor as $doc)
-                        {
-                            //fetch no. of coupons left show offer only coupons left is >0
-                            $couponsLeft = $doc['couponsLeft'];
-                            if($couponsLeft >= 1)
-                            {
+                        foreach($result as $doc)
+                        {   
                                 $adId = $doc['adId'];
                                 $adDescription = $doc['adDescription'];
                                 $adCategory = $doc['adCategory'];
@@ -81,7 +81,21 @@
                                 $this->mStrAdLocation[] = $adLocationArray;
                                 $this->mStrAdPrice[]  = $adPriceArray;
                                 $this->mStrAdActualPrice[] = $adActualPriceArray;
-                            }
+                                $exts = array('png', 'gif', 'jpg', 'jpeg'); 
+                                $file = "offerImages/".$adGUID;         // <-- You'd have to define $script_id 
+
+                                $src = ''; 
+                                foreach ($exts as $ext) 
+                                { 
+                                    if (file_exists("$file.$ext")) 
+                                    { 
+                                        $src = "$adGUID.$ext"; 
+                                        break; 
+                                    } 
+                                } 
+                                $url = array($src);
+                                $this->mStrImageUrl[] = $url;
+                            
                         }
                     }
                     else
@@ -89,50 +103,21 @@
                         break;
                     }
                 }
-                if(count($this->mStrAdId) == 0)
-                {
-                    $con -> close();
-                    return false;
-                }
-                else
-                {
-                    $con -> close();
-                    return true;
-                }
-                
-            }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
+                return true;
             }
         }
         function adSearchRateUpdate($adSearchRate,$adGUID)
         {
-            try
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new Mongo("localhost");
-                //connect to the database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'advertisementTable');
-                
-                //Update the Database
+                mysqli_close($link);
+            }
+            else
+            {
                 $adSearchRate = $adSearchRate+1;
-                $newData = array('$set' => array("adSearchRate" => $adSearchRate));
-                $collection = $collection->update(array("adGUID"=>$adGUID),$newData);
-            }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
+                $query = "UPDATE advertisementTable SET adSearchRate = '$adSearchRate' WHERE adGUID = '$adGUID'";
+                $result = $link->query($query);
             }
         }
     //end of class
@@ -142,7 +127,7 @@
     $offersByInterest = new Offers;
     //Fetch values
     $interestedDomains = $_POST['interestedCategories'];
-
+    //$interestedDomains = "Electronics,";
     //Set values to variables
     $offersByInterest->setValues($interestedDomains);
     $flagMandatoryArguments = $offersByInterest->checkMandatoryArguments();
@@ -179,7 +164,8 @@
                                             "adCategory" => $offersByInterest->mStrAdCategory,
                                             "adGUID" => $offersByInterest->mStrAdGUID,
                                             "adPrice" => $offersByInterest->mStrAdPrice,
-                                            "adActualPrice" => $offersByInterest->mStrAdActualPrice));
+                                            "adActualPrice" => $offersByInterest->mStrAdActualPrice,
+                                            "imgUrl" => $offersByInterest->mStrImageUrl));
             $returnValue = json_encode($successValue);
             ob_clean();
             echo $returnValue;   

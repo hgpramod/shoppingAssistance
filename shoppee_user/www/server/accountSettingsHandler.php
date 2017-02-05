@@ -37,41 +37,30 @@
 		//function to update the Client info
 		function updateClientInfo()
 		{
-			try
-        	{
-	            $con = new Mongo("localhost");
-	            //connect to the database
-	            $db = $con->medha;
-	            $collection = new MongoCollection($db,'clientRegistrationTable');
-	            
-	            //Update the Database
-	            $newData = array('$set' => array("firstName" => $this->mStrFirstName,
-	            								"lastName" => $this->mStrLastName,
-	            								"phoneNumber" => $this->mStrPhoneNumber,
-	            								"interestedCategories" => $this->mStrInterestedCategories));
-	            $collection = $collection->update(array("emailId"=>$this->mStrEmailId),$newData);
-	            if($collection)
-	            {
-	                //close the connection
-		            $con -> close();
-		            return true;
-	            }
-	            else
-	            {
-	                //close the connection
-	                $con -> close();
-	                return false;
-	            }
-	        }
-	        catch ( MongoConnectionException $e )
-	        {
-	            // if there was an error,catch the exception
-	            echo $e->getMessage();
-	        }
-	        catch ( MongoException $e )
-	        {
-	            echo $e->getMessage();
-	        }
+			
+			$link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
+            {
+                mysqli_close($link);
+                return false;
+            }
+            else
+            {
+                $query = "UPDATE user_reg_table SET firstName='$this->mStrFirstName', lastName = '$this->mStrLastName', phone = '$this->mStrPhoneNumber',interestedCategories = '$this->mStrInterestedCategories'  WHERE emailId = '$this->mStrEmailId'";
+                $result = $link->query($query);
+
+                if($result)
+                {
+                    mysqli_close($link);
+                    return true;
+                }
+                else
+                {
+                    mysqli_close($link);
+                    return false;
+                }
+                
+            }   
 		}
     //end of class UpdateAccount
     }
@@ -82,7 +71,7 @@
 	$firstName = $_POST['firstName'];
 	$lastName = $_POST['lastName'];
 	$phoneNumber = $_POST['phoneNumber'];
-	$emailId = $_SESSION['emailId'];
+	$emailId = $_POST['emailId'];
 	$interestedCategories = $_POST['interestedCategories'];
 	
 	//set the values

@@ -23,6 +23,7 @@ function processOffers()
 	var adDescription = new Array();
 	var adCategory = new Array();
 	var adGUID = new Array();
+	var imgUrl = new Array();
 	var UIcontainer = document.getElementById("UIcontainer");
 	var offerStatus = document.getElementById("offerStatus");
 	var errorImage = document.getElementById("errorImage");
@@ -55,6 +56,7 @@ function processOffers()
 	    	adGUID = jsonData.data.adGUID;
 	    	adPrice = jsonData.data.adPrice;
 	    	adActualPrice = jsonData.data.adActualPrice;
+	    	imgUrl = jsonData.data.imgUrl;
 	    	for(var i=0; i<adId.length; i++)
 	    	{
 		    	var divBody = document.createElement("div");
@@ -66,7 +68,7 @@ function processOffers()
 		        divPanel.className = "panel-body";
 		        
 		        var image = document.createElement("img");
-		        image.setAttribute("src", imageUrl+"/"+adGUID[i]);
+		        image.setAttribute("src", imageUrl+"/"+imgUrl[i]);
 		        image.setAttribute("height", "auto");
 		        image.setAttribute("width","100%");
 

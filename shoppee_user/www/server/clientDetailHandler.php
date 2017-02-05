@@ -63,9 +63,7 @@
     //end of class
     }
 
-    //instatiate the class
     $clientDetails = new Details;
-    //Fetch values
     //$emailId = $_SESSION['emailId'];
     $emailId = $_POST['emailId'];
     $clientDetails->setValues($emailId);

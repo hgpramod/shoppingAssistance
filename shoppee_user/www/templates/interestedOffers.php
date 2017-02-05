@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta content="initial-scale=1.0, width=device-width" name="viewport">
-	<title>Offers-MeDHA Client</title>
+	<title>Shopping Assistance</title>
 	<!-- css -->
 	<link href="../css/base.min.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="../js/baseUrl.js"></script>
 	<script type="text/javascript" src="../js/interestedOffersCategoryCalls.js"></script>
 	<script type="text/javascript" src="../js/loadAdCategoryCalls.js"></script>
-    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDj1D0RGK5Qs4WlVksRg_eCC0DMNLS-how"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="../js/baseUrl.js"></script>
 	<script src="../js/fetchOffersCalls.js"></script>

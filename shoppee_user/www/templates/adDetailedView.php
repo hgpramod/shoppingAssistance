@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta content="initial-scale=1.0, width=device-width" name="viewport">
-	<title>Offers-MeDHA Client</title>
+	<title>Shopping Assistance</title>
 	<!-- css -->
 	<link href="../css/base.min.css" rel="stylesheet">
 
@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="../js/interestedOffersCategoryCalls.js"></script>
 	<script type="text/javascript" src="../js/loadAdCategoryCalls.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDj1D0RGK5Qs4WlVksRg_eCC0DMNLS-how"></script>
 	<script type="text/javascript" src="../js/adDetailCalls.js"></script>
 	<script type="text/javascript" src="../js/adDetailLocationCalls.js"></script>
 	<script type="text/javascript" src="../js/buyOfferCalls.js"></script>
@@ -30,7 +30,7 @@
 <body class="avoid-fout page-blue" style="background-color:#EEEEEE;">
 	<div class="avoid-fout-indicator avoid-fout-indicator-fixed">
 		<div class="progress-circular progress-circular-alt progress-circular-center progress-circular-blue">
-			<div class="progress-circular-wrapper">
+			<div classs="tprogress-circular-wrapper">
 				<div class="progress-circular-inner">
 					<div class="progress-circular-left">
 						<div class="progress-circular-spinner"></div>

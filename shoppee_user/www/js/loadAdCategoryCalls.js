@@ -5,8 +5,9 @@ function loadCategories()
 	//make asynchronous call to server and fetch the categories
 	xhrFetchCategories = new XMLHttpRequest();
 	xhrFetchCategories.onreadystatechange = processFetchedCategories;
-	xhrFetchCategories.open("GET",baseUrl+"/getAdCategoriesHandler.php",true);
-	xhrFetchCategories.send();
+	xhrFetchCategories.open("POST",baseUrl+"/getAdCategoriesHandler.php",true);
+	xhrFetchCategories.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  	xhrFetchCategories.send("emailId="+localStorage.getItem("user"));
 }
 function processFetchedCategories()
 {

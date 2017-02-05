@@ -30,7 +30,7 @@ function doUpdateAccount()
 		xhrDoUpdateAccount.onreadystatechange = processUpdateAccount;
 		xhrDoUpdateAccount.open("POST",baseUrl+"/accountSettingsHandler.php",true);
 		xhrDoUpdateAccount.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhrDoUpdateAccount.send("firstName="+firstName+"&lastName="+lastName+"&phoneNumber="+phoneNumber+"&interestedCategories="+interestedCategoriesArray);
+		xhrDoUpdateAccount.send("firstName="+firstName+"&lastName="+lastName+"&phoneNumber="+phoneNumber+"&interestedCategories="+interestedCategoriesArray+"&emailId="+localStorage.getItem("user"));
 	}
 }
 //function to process the UpdateAccount
