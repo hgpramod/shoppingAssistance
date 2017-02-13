@@ -25,6 +25,7 @@
     <link class="main-stylesheet" href="frontend/pages/css/pages.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="frontend/assets/css/bootstrap-social.css"/>
     <script src="js/deleteOffers.js"></script>
+    <script src="js/jquery.js"></script>
     <!--[if lte IE 9]>
         <link href="frontend/pages/css/ie9.css" rel="stylesheet" type="text/css" />
     <![endif]-->
@@ -122,40 +123,27 @@
                 </li>
               </ul>
             </div>
-          </div>
-                    
-                </ul>
-               
-            
-            <!-- /.navbar-collapse -->
-        </div>
-
-        <!-- /.container -->
+          </div>     
+        </ul>
+      </div>
     </nav>
-
-<div class="login-wrapper">
-      
-
-             <!-- START Login Background Pic Wrapper-->
-      <img >
-      
-      
-      <!-- END Login Background Pic Wrapper-->
-      <!-- START Login Right Container-->
-      
-
-
-     
-      
-
-              <span id="title" class="semi-bold">Title</span>
-              
-                <script>document.getElementById("title").innerHTML = localStorage.getItem("title");</script>
-            
-         
-   </div>    
-   
-      
+    <br></br>
+    <br></br>
+    <div class='row'>
+      <div class='col-lg-12'>
+          <section class='panel'>
+            <header class='panel-heading' align="center">
+              <span style="font-size:20px"> <b>Existing Offers</b></span>
+            </header>
+              <div class='panel-body'> 
+                <br>                     
+                <div id="status" style="color:red" align="center"></div>
+                <table id="dataTable" style="" width="100%"></table>
+              </div>
+          </section>
+        </div>
+      </div>
+      <script>fetchOffers()</script>
    
               
     <script src="frontend/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
