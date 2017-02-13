@@ -17,7 +17,7 @@ if (!$link) {
 }
 //echo 'Connected successfully';
 
-$sql=mysqli_query($link,"SELECT fullName,password FROM client_reg_table WHERE fullName='$name2' AND password='$password2'");
+$sql=mysqli_query($link,"SELECT * FROM client_reg_table WHERE emailId='$email2'");
  if((mysqli_num_rows($sql))>=1)
    {
     
@@ -34,7 +34,7 @@ $sql=mysqli_query($link,"SELECT fullName,password FROM client_reg_table WHERE fu
      $query = mysqli_query($link,"insert into client_reg_table(fullName, emailId, password) values ('$name2', '$email2', '$password2')"); //Insert Query
      $successValue = array("statusCode" => "0",
                                         "errorCode" => "42000",
-                                        "statusText" => "FAILURE");
+                                        "statusText" => "SUCCESS");
                         $returnValue = json_encode($successValue);
                         ob_clean();
                         echo $returnValue;

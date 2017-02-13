@@ -35,7 +35,7 @@ function doLogin()
 		
 		if(errorCode == 42001)
 		{   
-
+			localStorage.setItem("loggedInUser", emailid);
 			LoginStatus.innerHTML = "success";
 			window.open("welcome.html",'_self');
 		}

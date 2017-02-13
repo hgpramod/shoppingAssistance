@@ -101,7 +101,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-center">
                  <li>
-                        <h1 style="color:white;align:center;" align="center">Shopping Assistance</h1>
+                        <h1 style="color:white;align:center;" align="center">Shopping <span style="color:blue">Assistance</span></h1>
                     </li> 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -191,7 +191,7 @@
       
 
     	       <!-- START Login Background Pic Wrapper-->
-      <img src="frontend/assets/img/demo/shop.jpg" data-src="frontend/assets/img/demo/shops.jpg" data-src-retina="frontend/assets/img/demo/shop.jpg" alt="" class="lazy" width="100%">
+      <img src="css/img/shop.jpg" data-src="css/img/shop.jpg" data-src-retina="css/img/shop.jpg" alt="" class="lazy" width="100%">
       
   		
       <!-- END Login Background Pic Wrapper-->
