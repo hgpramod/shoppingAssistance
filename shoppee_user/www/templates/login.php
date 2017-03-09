@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>OfferMonk</title>
+    <title>Shopping Assistance</title>
 
     <!-- Bootstrap CSS -->    
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -18,21 +18,19 @@
     <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="../js/loginCalls.js"></script>
   </head>
-  <body style="background-color:#00aff0;color:white;text-align:center;font-family:'Poiret One'">
-    <div class="panel panel-default" style="background-color:#00aff0;border:none;box-shadow:none;">
-      <div class="panel-body" style="border:none;">
-        <img src="../images/brandname.png" width="100" height="100"/>
-        <br/>
-        <label style="font-weight:bold;">Sign In</label>
+  <body style="background-color:#880E4F;color:white;text-align:center;font-family:'Poiret One'">
+    
+    <div class="panel panel-default" style="background-color:#880E4F;">
+      <div class="panel-body" style="border:none;background-color:#880E4F;">
+        <img src="../images/brandname.png" width="150" height="75"/>
       </div>
-    </div>
-    <div class="panel panel-default" id="loginDiv">
-      <div class="panel-body" style="border:none;">
+      <div class="panel-body" style="border:none;" id="loginDiv">
         <form method="POST">
           <table class="center">
+            <tr><td><label id="loginStatus"></label></td></tr>
             <tr>
               <td>
-                <input type="text" id="emailId" class="textFields" placeholder="Email Id"/>
+                <input type="text" id="emailId" class="textFields" placeholder="Registered Email Id"/>
               </td>
             </tr>
             <tr>
@@ -40,15 +38,14 @@
                 <input type="password" id="password" class="textFields" placeholder="Password"/>
               </td>
             </tr>
+
           </table>
         </form>
-        <a href="forgotPassword.php">Forgot Password?</a>
+        <a href="forgotPassword.php" style="color:grey">Forgot Password?</a>
     </div>
 
-    <div class="panel panel-default" style="background-color:#00aff0;border:none;box-shadow:none;">
-      <img src="../images/arrow.png" height="50px" onclick="doLogin()">
-    </div>
-    <label id="loginStatus"></label>
+    <button type="button" class="btn btn-danger" onclick="doLogin()" style="background-color: #C2185B;color:#ffffff; border-radius:12px"><b>Login</b></button>
+    
       <input type="button" id="footer" value="Create Account" onclick="registerCalls();" />
   </body>
   <script>

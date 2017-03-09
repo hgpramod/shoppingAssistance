@@ -80,11 +80,11 @@
 	</nav>
 	
 	<!--navigation bar-->
-	<nav style="height:50px;background-color:#00aff0; margin:0px auto; width:100%;position:fixed;top:0px;">
+	<nav style="height:50px;background-color:#880E4F; margin:0px auto; width:100%;position:fixed;top:0px;">
 	<ul style="display: inline;">
 			<li style="float: left;margin-top:15px;margin-left:15px;background-color: transparent;list-style-type: none;display: inline;">
 				<a data-toggle="menu" href="#menu" style="outline: none;">
-					<i class="fa fa-bars fa-lg"></i>
+					<i class="fa fa-bars fa-lg" style="color:grey"></i>
 				</a>
 			</li>
 		</ul>

@@ -84,16 +84,16 @@
 	</nav>
 	
 	<!--navigation bar-->
-	<nav style="height:50px;background-color:#00aff0; margin:0px auto; width:100%;position:fixed;top:0px;z-index:1">
-		<ul style="display: inline;">
+	<nav style="height:50px;background-color:#880E4F; margin:0px auto; width:100%;position:fixed;top:0px;z-index:1">
+		<ul style="display: inline;background-color:#880E4F;">
 			<li style="float: left;margin-top:15px;margin-left:15px;background-color: transparent;list-style-type: none;display: inline;">
 				<a data-toggle="menu" href="#menu" style="outline: none;">
-					<i class="fa fa-bars fa-lg"></i>
+					<i class="fa fa-bars fa-lg" style="color:grey"></i>
 				</a> 
 			</li>
 			<li id='alert_notificatoin_bar' class='dropdown pull-right' style="list-style-type: none;float: right;margin-top:10px;margin-right:15px;display: inline;">
                 <a data-toggle='dropdown' class='dropdown-toggle' href='#' style="outline: none;">
-                    <i class="fa fa-globe fa-2x"></i>
+                    <i class="fa fa-globe fa-2x" style="color:grey"></i>
                 </a>
                 <ul class='dropdown-menu extended notification'>
                     <li>
@@ -117,7 +117,7 @@
 	    
 	  </div><!-- /.container-fluid -->
 	</nav>
-	<nav style="height:100px;background-color:#00aff0; margin:0px auto; width:100%;position:absolute;top:50px;">
+	<nav style="height:100px;background-color:#880E4F; margin:0px auto; width:100%;position:absolute;top:50px;">
 		<div class="container">
 			<h2 class="heading" align="center" style="color:#FFFFFF;text-transform:uppercase;">Welcome</h2>
 		</div>
@@ -128,7 +128,7 @@
 			<div class="column">
 				<br/>
 				<div class="panel-blue">
-				  <div class="panel-heading" style="background-color:#00aff0;">
+				  <div class="panel-heading" style="background-color:#880E4F;">
 				    <h3 class="panel-title" style="text-align: center; color: white; font-weight: bold;" id="name">Username</h3>
 				  </div>
 				  <div class="panel-body">
@@ -149,7 +149,7 @@
 			<div class="column">
 				<br/>
 				<div class="panel-blue">
-					<div class="panel-heading" style="background-color:#00aff0;">
+					<div class="panel-heading" style="background-color:#880E4F;">
 				    	<h3 class="panel-title" style="text-align: center; color: white; font-weight: bold;">Recently Viewed Offers</h3>
 					</div>
 				  	<div class="panel-body">

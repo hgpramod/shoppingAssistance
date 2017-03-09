@@ -37,50 +37,64 @@
         //fetch the offerDetails based on the adGUID
         function fetchOffers()
         {
-            try
+            $link = mysqli_connect("localhost","root","","shoppingAssist");
+            if (!$link) 
             {
-                $con = new mongo("localhost");
-                //connect to Database
-                $db = $con->medha;
-                $collection = new MongoCollection($db,'advertisementTable');
+                mysqli_close($link);
+                return true;
+            }
+            else
+            {
                 for($i=0;$i<count($this->mStrAdGUID);$i++)
                 {
-                    $checkQuery = array("adGUID" => $this->mStrAdGUID[$i]);
-                    $cursor = $collection->find($checkQuery);
-                    if($cursor)
+                    $domain = $this->mStrAdGUID[$i];
+                    $query = "SELECT * FROM advertisementTable WHERE adGUID = '$domain'";
+                    $result = $link->query($query);
+                    
+                    if($result->num_rows > 0)
                     {
-                        foreach ($cursor as $doc) 
-                        {
+                        foreach($result as $doc)
+                        {   
                             $this->mStrAdId[] = $doc['adId'];
                             $this->mStrAdDescription[] = $doc['adDescription'];
                             $this->mStrAdCategory[] = $doc['adCategory'];
                             $this->mStrAdLocation[] = $doc['adLocation'];
-                            $this->mStrAdClick[] = $doc['numberOfClicks'];
+                            
                             $this->mStrAdOwner[] = $doc['adOwner'];
-                            $this->mDateStartDate[] = $this->convertDate($doc['adStartDate']);
-                            $this->mDateEndDate[] = $this->convertDate($doc['adEndDate']);
-                            $this->mStrValidityType[] = $doc['adValidityType'];
+                            $this->mDateStartDate[] = $doc['adStartDate'];
+                            $this->mDateEndDate[] = $doc['adEndDate'];
+                            
                             $this->mIntActualPrice[] = $doc['adActualPrice'];
                             $this->mIntDiscountRate[] = $doc['adDiscountRate'];
                             $this->mIntDiscountedPrice[] = $doc['adDiscountedPrice'];
                             $this->mStrHighlights[] = $doc['adHighlights'];
-                            $this->mIntNumberOfCoupons[] = $doc['couponsLeft'];
+                            
                             $this->mStrAdDetailedDescription[] = $doc['adDetailedDescription'];
                             $this->mStrOfferGUID[] = $doc['adGUID'];
+                            $adGUID = $doc['adGUID'];
+                            $exts = array('png', 'gif', 'jpg', 'jpeg'); 
+                            $file = "offerImages/".$adGUID;         // <-- You'd have to define $script_id 
+
+                            $src = ''; 
+                            foreach ($exts as $ext) 
+                            { 
+                                if (file_exists("$file.$ext")) 
+                                { 
+                                    $src = "$adGUID.$ext"; 
+                                    break; 
+                                } 
+                            } 
+                            $url = array($src);
+                            $this->mStrImageUrl[] = $url;
+                            
                         }
                     }
+                    else
+                    {
+                        break;
+                    }
                 }
-                $con -> close();
                 return true;
-            }
-            catch ( MongoConnectionException $e )
-            {
-                // if there was an error,catch the exception
-                echo $e->getMessage();
-            }
-            catch ( MongoException $e )
-            {
-                echo $e->getMessage();
             }
         }
         //function to convert the unix timestamp to date

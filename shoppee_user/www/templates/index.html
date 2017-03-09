@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="../js/baseUrl.js"></script>
 		<script src="../js/spin.js"></script>
 	</head>
-	<body background="../images/offerMonkOpenScreen.jpg" style="background-repeat: no-repeat; background-size: 100%;">
+	<body style="background-color:#880E4F;">
 		<div id="spinner"></div>
 			<script>
 				target = document.getElementById("spinner");
@@ -35,25 +35,8 @@
 						var dateDifference = currentTimeStamp-localStorage.getItem("timestamp");
 						if(Math.round((dateDifference/oneDay)) <=  "7")
 						{
-							var user = localStorage.getItem("user");
-						    //make ajax call to update the timestamp in DB
-						    xhrUpdateTimestamp = new XMLHttpRequest();
-						    xhrUpdateTimestamp.onreadystatechange = function()
-						    {
-						    	if(xhrUpdateTimestamp.readyState == 4 && xhrUpdateTimestamp.status == 200)
-						    	{
-						    		var returnValue = xhrUpdateTimestamp.responseText;
-						    		var json = JSON.parse(returnValue);
-						    		var errorCode = json.errorCode;
-						    		//spinner.stop();
-						    		if(errorCode == 50000)
-						    			window.open("welcome.php","_self");
-						    		else
-						    			window.open("login.php","_self");
-						    	}
-						    } 
-						    xhrUpdateTimestamp.open("GET",baseUrl+"/updateUserTimestampHandler.php?username="+user,true);
-						    xhrUpdateTimestamp.send();
+							spinner.stop();
+						    window.open("welcome.php","_self");		
 						}
 						else
 						{
