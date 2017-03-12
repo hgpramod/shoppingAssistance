@@ -1,24 +1,24 @@
-function doRegister()
+function doLogin()
 {
-	var fullname = document.getElementById("fullName").value;
-	var emailid = document.getElementById("emailId").value;
-	var password = document.getElementById("regPassword").value;
-	var dataString = 'fullname1=' + fullname + '&email1=' + emailid + '&password1=' + password;
-	if (fullname == '' || emailid == '' || password == '') 
+	
+	var emailid = document.getElementById("emailId1").value;
+	var password = document.getElementById("regPassword1").value;
+	var dataString = '&email1=' + emailid + '&password1=' + password;
+	if (emailid == '' || password == '') 
 	{
 		alert("Please Fill All Fields");
 	} 
 	else 
 	{
-		// AJAX code to submit form.
-		$.ajax({
+		
+		$.ajax
+		({
 			type: "POST",
-			url: "register.php",
+			url: "login.php",
 			data: dataString,
 			cache: false,
 			success: function(responseText) 
 			{
-				
 				var returnValue =responseText;
 				returnValue = returnValue.replace("{","");
 				returnValue = returnValue.replace("}","");
@@ -33,17 +33,18 @@ function doRegister()
 				statusText = arr[2].split(":");
 				statusText = statusText[1];
 				
-				if(errorCode == 42004)
-				{
-					registrationStatus.innerHTML = "Already Registered";
-				}
-				else if(errorCode == 42000)
-				{
-					localStorage.setItem("loggedInUser", emailid);
-					alert("Registration Successful");
-					window.open("welcome.html",'_self');
-				}
 		
+				if(errorCode == 42001)
+				{   
+					localStorage.setItem("loggedInUser", emailid);
+					LoginStatus.innerHTML = "success";
+					window.open("welcome.php",'_self');
+				}
+				else if(errorCode == 42002)
+				{
+					LoginStatus.innerHTML = "Account does not exists register first";
+				}
+				
 			}
 		
 		});

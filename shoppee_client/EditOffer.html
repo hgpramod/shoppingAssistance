@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -28,21 +29,15 @@
     
     <script src="js/drop.js"></script>
     <script src="js/picupload.js"></script>
-    <script src="js/save.js"></script>
-    
+    <script src="js/EditSave.js"></script>
+    <script src="js/fetchOfferForUpdate.js"></script>
+    <script src="js/fetchOfferForUpdate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script language="JavaScript" type="text/javascript"></script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDj1D0RGK5Qs4WlVksRg_eCC0DMNLS-how"></script>
-    <script src="js/logout.js"></script>
-    <script type="text/javascript">
-            if(!localStorage.getItem("loggedInUser"))
-            {
-              alert("Please Login to Continue.!");
-              window.open("index.php",'_self');
-            }
-    </script>
   
 </head>
-    <body class="fixed-header ">
+    <body class="fixed-header" onload="getUrlData()">
      <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -56,6 +51,26 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
+                <script type="text/javascript">
+            function getParameter(paramName) {
+                var searchString = window.location.search.substring(1), i, val, params = searchString.split("&");
+
+                for ( i = 0; i < params.length; i++) {
+                    val = params[i].split("=");
+                    if (val[0] == paramName) {
+                        return val[1];
+                    }
+                }
+                return null;
+            }
+
+            function getUrlData() {
+                var comment = getParameter("adGUID");
+                document.getElementById("textarea").value = comment;
+            }
+
+        </script>
+
             <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -111,7 +126,7 @@
                   <div class='col-lg-12'>
                       <section class='panel'>
                           <header class='panel-heading' align="center">
-                             <span style="font-size:20px"> <b>New Offer Details</b></span>
+                             <span style="font-size:20px"> <b>Edit the offers details</b></span>
                           </header>
                           <div class='panel-body'>
                               <form class='form-horizontal' method='get'  enctype='multipart/form-data'>
@@ -131,15 +146,12 @@
                                           <div class='col-lg-12 col-md-12' id='displayMap' style='height:180px;'></div>
                                       </div>
                                   </div>
+                                  <textarea name="my-textarea" id="textarea" readonly rows="5" cols="30"> </textarea>  
                                   <div class='form-group'>
                                       <label class='col-sm-2'>Detailed Description</label>
                                       <div class="col-sm-10">
-                                          <textarea class="form-control" name="detailedDescription" id="detailedDescription" style="width:500px; height:60px; border:1px solid #BDBDBD;border-radius:2px"></textarea>
-                                          
-                                          <div id="pushAdStatus"></div>
+                                          <textarea class="form-control" name="detailedDescription" id="detail" style="width:500px; height:60px; border:1px solid #BDBDBD;border-radius:2px"></textarea>
                                       </div>
-                                          
-                                          
                                   </div>
                                   <div class='form-group'>
                                       <label class='col-sm-2'>Category</label>
@@ -147,16 +159,18 @@
                                           <option value="" selected disabled>--Select Category--</option>
                                           <option value="Electronics">Electronics</option>
                                           <option value="Electronics">Automobiles</option>
-                                          <option value="Electronics">Automobiles</option>
-                                          <option value="Electronics">Automobiles</option>
+                                          <option value="Electronics">clothing</option>
+                                          <option value="Electronics">groceries</option>
                                       </select>
                                   </div>
+
                                   <div class='form-group'>
                                       <label class='col-sm-2'><b>Start Date</b></label>
                                       <div class='col-sm-10'>
                                           <div class="input-group">
                                             <input type="date" class="form-control" style="width:250px; height:32px; border:1px solid #BDBDBD;border-radius:2px" id='startDate'>
                                           </div>
+                                          
                                       </div>
                                   </div>
                                   <div class='form-group'>
@@ -165,11 +179,13 @@
                                           <div class="input-group">
                                             <input type="date" class="form-control" style="width:250px; height:32px; border:1px solid #BDBDBD;border-radius:2px" id='endDate'>
                                           </div>
+                                           
                                       </div>
                                   </div>
+                                  <!-- <textarea name="my-textarea" id="my-textarea" readonly rows="5" cols="30"> </textarea>   -->
                                   <div id="status"></div>
                                   <br/>
-                                    <button id="createOfferButton" type="button" class="btn btn-primary" onclick="doSave()">Create Offer</button>
+                                    <button id="createOfferButton" type="button" class="btn btn-primary" onclick="doEdit()">Edit Offer</button>
                                   <br/>
                               </form>
                               <!--end of form body-->
@@ -178,6 +194,7 @@
                     </div>
                   </div>
                   <script>getMultipleLocation()</script>
+                  <script>updateOffers()</script>
   		
       <!-- END Login Background Pic Wrapper-->
       <!-- START Login Right Container-->

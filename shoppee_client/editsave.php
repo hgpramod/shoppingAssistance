@@ -8,7 +8,7 @@ $startDate2 = $_POST['startDate1'];
 $endDate2 = $_POST['endDate1'];
 $adLocation = $_POST['adLocation'];
 $emailid = $_POST['emailId1'];
-$adGUID = getGUID();
+$adGUID = '123456';
 
 $dbhost = "localhost";
    $dbuser = "root";
@@ -32,7 +32,8 @@ else
   
   {
     
-     $query = mysqli_query($link,"insert into advertisementtable (adDescription,adCategory,adStartDate,adEndDate,addDeatailedDescription,adLocation,adGUID,adOwner) values ('$description2','$category2','$startDate2','$endDate2','$DetailedDescription2','$adLocation','$adGUID','$emailid')");
+     $query = mysqli_query($link,"UPDATE advertisementtable SET adDescription='$description2',adCategory='$category2',adGUID='$adGUID',adLocation='$adLocation',adStartDate='$startDate2',adEndDate='$endDate2',addDeatailedDescription='$DetailedDescription2'
+WHERE adOwner='$emailid' AND adDescription='$description2'");
      if(!$query)
      {
       echo("error");
@@ -45,28 +46,5 @@ else
                         echo $returnValue;
      
   }
-
-  //function to create GUID
-        function getGUID()
-        {
-            if (function_exists('com_create_guid'))
-             {
-                return com_create_guid();
-            }
-            else
-            {
-                mt_srand((double)microtime()*10000);
-                $charid = strtoupper(md5(uniqid(rand(), true)));
-                $hyphen = chr(45);// "-"
-                $uuid = chr(123)// "{"
-                    .substr($charid, 0, 8).$hyphen
-                    .substr($charid, 8, 4).$hyphen
-                    .substr($charid,12, 4).$hyphen
-                    .substr($charid,16, 4).$hyphen
-                    .substr($charid,20,12)
-                    .chr(125);// "}"
-                return $uuid;
-            }
-        }
 //mysqli_close($link); // Connection Closed
 ?>

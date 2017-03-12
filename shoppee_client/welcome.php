@@ -1,8 +1,10 @@
+<?php
+
+
+?>
 <!DOCTYPE html>
 <html>
-
-     
-  <head>
+<head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
     <title>Shopping Assistance</title>
@@ -26,6 +28,7 @@
     <link href="frontend/pages/css/pages-icons.css" rel="stylesheet" type="text/css">
     <link class="main-stylesheet" href="frontend/pages/css/pages.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="frontend/assets/css/bootstrap-social.css"/>
+    <script src="js/logout.js"></script>
     <script type="text/javascript">
             window.onload = function()
             {
@@ -48,6 +51,12 @@
               border.style.borderColor="#ccc";
               border.style.boxShadow = 'inset 0 0 5px #ccc';
             }
+
+            if(!localStorage.getItem("loggedInUser"))
+            {
+              alert("Please Login to Continue.!");
+              window.open("index.php",'_self');
+            }
     </script>
     </head>
     <body class="fixed-header ">
@@ -64,7 +73,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                  <a href="welcome.html" class="anchor"><h5 style="color:white;">Home</h4> <span ></span></a>
+                  <a href="index.php" class="anchor"><h5 style="color:white;">Home</h4> <span ></span></a>
                 </li>
                 <li>
                   <a href="" class="dropdown-toggle" data-toggle="dropdown"><h5 style="color:white;">Manage Offers</h5></a>
@@ -111,7 +120,7 @@
                                   <li><a href="#"><i class="pg-signals"></i> Help</a>
                                   </li>
                                   <li class="bg-master-lighter">
-                                    <a href="logout.php" class="clearfix">
+                                    <a href ="#" onclick="doLogout();" class="clearfix">
                                       <span class="pull-left">Logout</span>
                                       <span class="pull-right"><i class="pg-power"></i></span>
                                     </a>

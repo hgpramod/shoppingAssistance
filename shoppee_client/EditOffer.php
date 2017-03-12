@@ -32,14 +32,6 @@
     
     <script language="JavaScript" type="text/javascript"></script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDj1D0RGK5Qs4WlVksRg_eCC0DMNLS-how"></script>
-    <script src="js/logout.js"></script>
-    <script type="text/javascript">
-            if(!localStorage.getItem("loggedInUser"))
-            {
-              alert("Please Login to Continue.!");
-              window.open("index.php",'_self');
-            }
-    </script>
   
 </head>
     <body class="fixed-header ">
@@ -61,7 +53,7 @@
                     <ul class="nav navbar-nav">
                     
                     <li>
-                        <a href="welcome.html" class="anchor"><h5 style="color:white;">Home</h4> <span ></span></a>
+                        <a href="welcome.php" class="anchor"><h5 style="color:white;">Home</h4> <span ></span></a>
                     </li>
                     
                     

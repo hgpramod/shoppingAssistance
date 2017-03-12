@@ -75,7 +75,7 @@ function createMarker(pos,iterationValue)
     });
 }
 
-function doSave()
+function doEdit()
 {
 	var status = document.getElementById("status");
 	var description = document.getElementById("description").value;
@@ -94,7 +94,7 @@ function doSave()
 		
 		$.ajax({
 			type: "POST",
-			url: "save.php",
+			url: "editsave.php",
 			data: dataString,
 			cache: false,
 			success: function(responseText) 
@@ -122,7 +122,7 @@ function doSave()
 		}
 		else if(errorCode == 42000)
 		{
-			status.innerHTML = "Ad saved Successfully.";
+			status.innerHTML = "Ad details edited successfully.";
 		}
 	}
 		

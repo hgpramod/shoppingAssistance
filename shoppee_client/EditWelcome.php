@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?php
+?>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -24,7 +25,7 @@
     <link href="frontend/pages/css/pages-icons.css" rel="stylesheet" type="text/css">
     <link class="main-stylesheet" href="frontend/pages/css/pages.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="frontend/assets/css/bootstrap-social.css"/>
-    <script src="js/deleteOffers.js"></script>
+    <script src="js/EditOffers.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/logout.js"></script>
     <!--[if lte IE 9]>
@@ -52,14 +53,12 @@
       border.style.borderColor="#ccc";
       border.style.boxShadow = 'inset 0 0 5px #ccc';
     }
-
-            if(!localStorage.getItem("loggedInUser"))
+     if(!localStorage.getItem("loggedInUser"))
             {
               alert("Please Login to Continue.!");
               window.open("index.php",'_self');
             }
    
-  
     </script>
   </head>
   <body class="fixed-header ">
@@ -142,7 +141,7 @@
       <div class='col-lg-12'>
           <section class='panel'>
             <header class='panel-heading' align="center">
-              <span style="font-size:20px"> <b>Existing Offers</b></span>
+              <span style="font-size:20px"> <b>Edit Offers</b></span>
             </header>
               <div class='panel-body'> 
                 <br>                     
@@ -152,7 +151,7 @@
           </section>
         </div>
       </div>
-      <script>fetchOffers()</script>
+      <script>EditOffers()</script>
    
               
     <script src="frontend/assets/plugins/pace/pace.min.js" type="text/javascript"></script>

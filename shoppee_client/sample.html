@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function getParameter(paramName) {
+                var searchString = window.location.search.substring(1), i, val, params = searchString.split("&");
+
+                for ( i = 0; i < params.length; i++) {
+                    val = params[i].split("=");
+                    if (val[0] == paramName) {
+                        return val[1];
+                    }
+                }
+                return null;
+            }
+
+            function getUrlData() {
+                var comment = getParameter("adGUID");
+                document.getElementsByName("my-textarea")[0].value = comment;
+            }
+
+        </script>
+    </head>
+    <body onload="getUrlData()">
+        <h1>welcome</h1>
+        <textarea name="my-textarea" readonly rows="5" cols="30"> </textarea>       
+
+
+    </body>
+</html>
